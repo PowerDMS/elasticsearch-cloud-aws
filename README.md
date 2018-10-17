@@ -77,6 +77,7 @@ The `cloud.aws.region` can be set to a region and will automatically use the rel
 * `eu-central` (`eu-central-1`)
 * `sa-east` (`sa-east-1`)
 * `cn-north` (`cn-north-1`)
+* `us-gov-west` (`us-gov-west-1`)
 
 
 ### EC2/S3 Signer API
