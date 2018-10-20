@@ -1,11 +1,11 @@
 /*
- * Licensed to Elasticsearch (the "Author") under one
- * or more contributor license agreements.  See the NOTICE file
- * distributed with this work for additional information
- * regarding copyright ownership. Author licenses this
- * file to you under the Apache License, Version 2.0 (the
- * "License"); you may not use this file except in compliance
- * with the License.  You may obtain a copy of the License at
+ * Licensed to Elasticsearch under one or more contributor
+ * license agreements. See the NOTICE file distributed with
+ * this work for additional information regarding copyright
+ * ownership. Elasticsearch licenses this file to you under
+ * the Apache License, Version 2.0 (the "License"); you may
+ * not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
  *
  *    http://www.apache.org/licenses/LICENSE-2.0
  *
@@ -34,10 +34,12 @@ import java.io.InputStream;
 import java.net.URL;
 import java.util.Date;
 import java.util.List;
+//import org.elasticsearch.common.SuppressForbidden;
 
 /**
  *
  */
+//@SuppressForbidden(reason = "implements AWS api that uses java.io.File!")
 public class AmazonS3Wrapper implements AmazonS3 {
 
     protected AmazonS3 delegate;
@@ -275,6 +277,11 @@ public class AmazonS3Wrapper implements AmazonS3 {
     @Override
     public void deleteBucketReplicationConfiguration(String bucketName) throws AmazonServiceException, AmazonClientException {
         delegate.deleteBucketReplicationConfiguration(bucketName);
+    }
+
+    @Override
+    public void deleteBucketReplicationConfiguration(DeleteBucketReplicationConfigurationRequest deleteBucketReplicationConfigurationRequest) throws AmazonServiceException, AmazonClientException {
+        delegate.deleteBucketReplicationConfiguration(deleteBucketReplicationConfigurationRequest);
     }
 
     @Override
@@ -577,77 +584,58 @@ public class AmazonS3Wrapper implements AmazonS3 {
         return delegate.isRequesterPaysEnabled(bucketName);
     }
 
+    @Override
+    public ObjectListing listNextBatchOfObjects(ListNextBatchOfObjectsRequest listNextBatchOfObjectsRequest) throws AmazonClientException, AmazonServiceException {
+        return delegate.listNextBatchOfObjects(listNextBatchOfObjectsRequest);
+    }
 
-	@Override
-	public ObjectListing listNextBatchOfObjects(ListNextBatchOfObjectsRequest listNextBatchOfObjectsRequest)
-			throws AmazonClientException, AmazonServiceException {
-		return delegate.listNextBatchOfObjects(listNextBatchOfObjectsRequest);
-	}
+    @Override
+    public VersionListing listNextBatchOfVersions(ListNextBatchOfVersionsRequest listNextBatchOfVersionsRequest) throws AmazonClientException, AmazonServiceException {
+        return delegate.listNextBatchOfVersions(listNextBatchOfVersionsRequest);
+    }
 
+    @Override
+    public Owner getS3AccountOwner(GetS3AccountOwnerRequest getS3AccountOwnerRequest) throws AmazonClientException, AmazonServiceException {
+        return delegate.getS3AccountOwner(getS3AccountOwnerRequest);
+    }
 
-	@Override
-	public VersionListing listNextBatchOfVersions(ListNextBatchOfVersionsRequest listNextBatchOfVersionsRequest)
-			throws AmazonClientException, AmazonServiceException {
-		return delegate.listNextBatchOfVersions(listNextBatchOfVersionsRequest);
-	}
+    @Override
+    public BucketLoggingConfiguration getBucketLoggingConfiguration(GetBucketLoggingConfigurationRequest getBucketLoggingConfigurationRequest) throws AmazonClientException, AmazonServiceException {
+        return delegate.getBucketLoggingConfiguration(getBucketLoggingConfigurationRequest);
+    }
 
+    @Override
+    public BucketVersioningConfiguration getBucketVersioningConfiguration(GetBucketVersioningConfigurationRequest getBucketVersioningConfigurationRequest) throws AmazonClientException, AmazonServiceException {
+        return delegate.getBucketVersioningConfiguration(getBucketVersioningConfigurationRequest);
+    }
 
-	@Override
-	public Owner getS3AccountOwner(GetS3AccountOwnerRequest getS3AccountOwnerRequest)
-			throws AmazonClientException, AmazonServiceException {
-		return delegate.getS3AccountOwner(getS3AccountOwnerRequest);
-	}
+    @Override
+    public BucketLifecycleConfiguration getBucketLifecycleConfiguration(GetBucketLifecycleConfigurationRequest getBucketLifecycleConfigurationRequest) {
+        return delegate.getBucketLifecycleConfiguration(getBucketLifecycleConfigurationRequest);
+    }
 
+    @Override
+    public BucketCrossOriginConfiguration getBucketCrossOriginConfiguration(GetBucketCrossOriginConfigurationRequest getBucketCrossOriginConfigurationRequest) {
+        return delegate.getBucketCrossOriginConfiguration(getBucketCrossOriginConfigurationRequest);
+    }
 
-	@Override
-	public BucketLoggingConfiguration getBucketLoggingConfiguration(
-			GetBucketLoggingConfigurationRequest getBucketLoggingConfigurationRequest)
-					throws AmazonClientException, AmazonServiceException {
-		return delegate.getBucketLoggingConfiguration(getBucketLoggingConfigurationRequest);
-	}
+    @Override
+    public BucketTaggingConfiguration getBucketTaggingConfiguration(GetBucketTaggingConfigurationRequest getBucketTaggingConfigurationRequest) {
+        return delegate.getBucketTaggingConfiguration(getBucketTaggingConfigurationRequest);
+    }
 
+    @Override
+    public BucketNotificationConfiguration getBucketNotificationConfiguration(GetBucketNotificationConfigurationRequest getBucketNotificationConfigurationRequest) throws AmazonClientException, AmazonServiceException {
+        return delegate.getBucketNotificationConfiguration(getBucketNotificationConfigurationRequest);
+    }
 
-	@Override
-	public BucketVersioningConfiguration getBucketVersioningConfiguration(
-			GetBucketVersioningConfigurationRequest getBucketVersioningConfigurationRequest)
-					throws AmazonClientException, AmazonServiceException {
-		return delegate.getBucketVersioningConfiguration(getBucketVersioningConfigurationRequest);
-	}
+    @Override
+    public BucketReplicationConfiguration getBucketReplicationConfiguration(GetBucketReplicationConfigurationRequest getBucketReplicationConfigurationRequest) throws AmazonServiceException, AmazonClientException {
+        return delegate.getBucketReplicationConfiguration(getBucketReplicationConfigurationRequest);
+    }
 
-
-	@Override
-	public BucketLifecycleConfiguration getBucketLifecycleConfiguration(
-			GetBucketLifecycleConfigurationRequest getBucketLifecycleConfigurationRequest) {
-		return delegate.getBucketLifecycleConfiguration(getBucketLifecycleConfigurationRequest);
-	}
-
-
-	@Override
-	public BucketCrossOriginConfiguration getBucketCrossOriginConfiguration(
-			GetBucketCrossOriginConfigurationRequest getBucketCrossOriginConfigurationRequest) {
-		return delegate.getBucketCrossOriginConfiguration(getBucketCrossOriginConfigurationRequest);
-	}
-
-
-	@Override
-	public BucketTaggingConfiguration getBucketTaggingConfiguration(
-			GetBucketTaggingConfigurationRequest getBucketTaggingConfigurationRequest) {
-		return delegate.getBucketTaggingConfiguration(getBucketTaggingConfigurationRequest);
-	}
-
-
-	@Override
-	public BucketNotificationConfiguration getBucketNotificationConfiguration(
-			GetBucketNotificationConfigurationRequest getBucketNotificationConfigurationRequest)
-					throws AmazonClientException, AmazonServiceException {
-		return delegate.getBucketNotificationConfiguration(getBucketNotificationConfigurationRequest);
-	}
-
-
-	@Override
-	public BucketReplicationConfiguration getBucketReplicationConfiguration(
-			GetBucketReplicationConfigurationRequest getBucketReplicationConfigurationRequest)
-					throws AmazonServiceException, AmazonClientException {
-		return delegate.getBucketReplicationConfiguration(getBucketReplicationConfigurationRequest);
-	}
+    @Override
+    public HeadBucketResult headBucket(HeadBucketRequest headBucketRequest) throws AmazonClientException, AmazonServiceException {
+        return delegate.headBucket(headBucketRequest);
+    }
 }
